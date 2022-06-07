@@ -1,13 +1,189 @@
-body {
+html, body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/*========
+  NAVBAR
+========*/
+
+.navbar {
+  background-color: rgb(250, 118, 140);
+  color: white;
+  display: flex;
+  font-size: 25px;
+  height: 38px; /* Do not change */
+  justify-content: space-between;
+}
+
+.navbar__item {
+  cursor: pointer;
+  margin: 0;
+  padding: 5px;
+}
+
+.navbar__item:hover {
+  color: pink;
+}
+
+/*=========
+  TOP-BAR
+=========*/
+
+.top-bar {
+  background-color: rgb(200, 200, 200);
+  display: flex;
+  height: 58px; /* Do not change */
+  justify-content: space-between;
+}
+
+.top-bar__section {
+  margin: 0;
+}
+
+.top-bar__section--left {
+  font-size: 25px;
+  margin-left: 5px;
+}
+
+.top-bar__section--left p {
+  margin: 0;
+}
+
+.top-bar__section--middle {
+  font-size: 50px;
+  /* Add border to text with below 2 lines */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.top-bar__section--right {
+  font-size: 25px;
+  margin-right: 5px;
+  text-align: end;
+}
+
+.top-bar__section--right p {
+  margin: 0;
+}
+
+/*============
+  GAMESCREEN
+============*/
+
+.game-section {
+  background-color: rgb(152, 152, 152);
+  width: 100%;
+}
+
+/*=======
+  GAME1
+=======*/
+
+.game-one {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.game-one__cuadrant {
+  width: 50%;
+}
+
+/*=======
+  GAME2
+=======*/
+
+.game-two {
+  padding-top: 100px;
+}
+
+.game-two__section-up {
+  background-color: rgb(249, 197, 134);
+  border: 4px solid black;
+  height: 50px;
+  margin: 0 auto;
+  text-align: center;
+  width: 250px;
+}
+
+.game-two__section-up p {
+  font-size: 45px;
+  margin: 0 auto;
+}
+
+.game-two__section-down {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.game-two__section-down input {
+  background-color: bisque;
+  border: 4px solid black;
+  font-size: 45px;
+  font-weight: bold;
+  height: 50px;
+  padding: 0;
+  outline: none;
+  text-align: center;
+  width: 250px;
+}
+
+.game-two__section-down button {
+  background-color: #fa6400;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  /* justify-content: center; */
+  margin: 20px auto;
+  /* position: relative; */
+  /* text-decoration: none; */
+  transition: all 25ms;
+  width: 130px;
+}
+
+.game-two__section-down button:hover,
+.game-two__section-down button:focus {
+  background-color: #fb8332;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+/*=======
+  GAME3
+=======*/
+
+.game-three {
+  padding-top: 30px;
+  text-align: center;
+}
+
+.game-three table {
+  margin: 0 auto;
+}
+
+.game-three__cell {
+  background-color: white;
+  border: 1px solid black;
+  height: 20px;
+  margin: 5px;
+  width: 20px;
+}
+
+.game-three__response-options {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto;
+  text-align: center;
+  width: 300px;
+}
+
+.game-three__response-options__option {
+  background-color: rgb(249, 197, 134);
+  border: 5px solid rgb(124, 71, 5);
+  cursor: pointer;
+  font-size: 45px;
+  font-weight: bold;
+  height: 50px;
+  width: 50px;
 }
