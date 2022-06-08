@@ -52,7 +52,7 @@ const Game3 = (props: { setText: Function, setTextColor: Function }) => {
     return options.sort();
   };
 
-  const handleClick= (e: React.MouseEvent<HTMLInputElement>): void => {
+  const handleClick= (e: React.MouseEvent<HTMLElement>): void => {
     if(+e.currentTarget.id === selectedColorCount) console.log('correct');  //Handle the score here
   };
 

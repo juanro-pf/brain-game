@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Game1 from './Game1';
 import Game2 from './Game2';
 import Game3 from './Game3';
+import Game4 from './Game4';
+import Game5 from './Game5';
 
 const GameScreen = () => {
 
@@ -27,7 +29,9 @@ const GameScreen = () => {
       <div className='game-section' style={{ height: `${height - 58 - 38}px` }}> {/*38 from .navbar and 58 from .top-bar*/}
         {/* <Game1 height={height} text={midText} setText={setMidText} textColor={midTextColor} setTextColor={setMidTextColor} /> */}
         {/* <Game2 /> */}
-        <Game3 setText={setMidText} setTextColor={setMidTextColor}/>
+        {/* <Game3 setText={setMidText} setTextColor={setMidTextColor}/> */}
+        {/* <Game4 /> */}
+        <Game5 />
       </div>
     </div>
   )
