@@ -239,3 +239,45 @@ html, body {
   -webkit-text-stroke-width: 4px;
   -webkit-text-stroke-color: black;
 }
+
+/*=======
+  GAME6
+=======*/
+
+.game-six {
+  font-size: 35px;
+  padding-top: 30px;
+  /* text-align as center to center the numbers inside the elements */
+  text-align: center;
+}
+
+.game-six__section {
+  display: flex;
+  justify-content: center;
+}
+
+.game-six__section--up {
+  /* justify-content: center; */
+}
+
+.game-six__section__column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.game-six__section__column__element {
+  background-color: #fa6400;
+  border: 2px solid black;
+  border-radius: 50%;
+  font-weight: bold;
+  height: 50px;
+  line-height: 52px;
+  margin-bottom: 15px;
+  width: 50px;
+}
+
+.game-six__section--down {
+  
+}

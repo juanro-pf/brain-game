@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { shuffleArray } from '../helpers/helpFunctions';
 
 const Game4 = () => {
 
@@ -20,23 +21,7 @@ const Game4 = () => {
     for(let i=0; i<numberCount; i++){
       plainNumArray.push(i+1);
     }
-
-    //Shuffle array
-    let currentIndex = plainNumArray.length,  randomIndex;
-
-    // While there remain elements to shuffle.
-    while (currentIndex != 0) {
-
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [plainNumArray[currentIndex], plainNumArray[randomIndex]] = [
-        plainNumArray[randomIndex], plainNumArray[currentIndex]];
-    }
-    //Shuffle array ends
-
+    shuffleArray(plainNumArray);
     let rowCount= -1;
     const leftNumbers: number[]= [];
     for(let j=0; j<rows; j++){

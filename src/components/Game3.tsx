@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getRandomElement } from '../helpers/helpFunctions';
 import newColors from '../media/colors.json';
 
 const Game3 = (props: { setText: Function, setTextColor: Function }) => {
@@ -13,12 +14,8 @@ const Game3 = (props: { setText: Function, setTextColor: Function }) => {
   const [cellsArray, setCellsArray] = useState([['']]);
   const [optionsArray, setOptionsArray] = useState([0, 0, 0, 0]);
 
-  const getRandomColor= (colorArray: string[]): string => {
-    return colorArray[Math.floor(Math.random() * colorArray.length)];
-  };
-
   useEffect(() => {
-    const randColor= getRandomColor(colors);
+    const randColor= getRandomElement(colors);
     setText(randColor);
     setTextColor(newColors[randColor as Color]);  // https://bobbyhadz.com/blog/typescript-element-implicitly-has-any-type-expression
     const [generatedCells, count]= generateCellsArray(randColor);
@@ -34,7 +31,7 @@ const Game3 = (props: { setText: Function, setTextColor: Function }) => {
       const arrayColumn: string[]= [];
       tempArray.push(arrayColumn);
       for(let row=0; row<10; row++){
-        const randomColor= getRandomColor(colors);
+        const randomColor= getRandomElement(colors);
         if(randomColor === color) colorCount++;
         tempArray[column].push(randomColor);
       }

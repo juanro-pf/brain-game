@@ -4,6 +4,7 @@ import Game2 from './Game2';
 import Game3 from './Game3';
 import Game4 from './Game4';
 import Game5 from './Game5';
+import Game6 from './Game6';
 
 const GameScreen = () => {
 
@@ -31,7 +32,8 @@ const GameScreen = () => {
         {/* <Game2 /> */}
         {/* <Game3 setText={setMidText} setTextColor={setMidTextColor}/> */}
         {/* <Game4 /> */}
-        <Game5 />
+        {/* <Game5 /> */}
+        <Game6 />
       </div>
     </div>
   )

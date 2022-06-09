@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getRandomElement, shuffleArray } from '../helpers/helpFunctions';
 import newColors from '../media/colors.json';
 
 const Game1 = (props: { height: number, text: string, setText: Function, textColor: string, setTextColor: Function }) => {
@@ -13,41 +14,25 @@ const Game1 = (props: { height: number, text: string, setText: Function, textCol
   const colors= Object.keys(newColors); //['Yellow', 'Green', 'Red', 'Blue']
   const colorsPlusBlackArray= Object.keys(colorsPlusBlack);
 
-  const getRandomColor= (colorArray: string[]): string => {
-    return colorArray[Math.floor(Math.random() * colorArray.length)];
-  };
-
   useEffect(() => {
-    setText(getRandomColor(colors));
-    setTextColor(colorsPlusBlack[getRandomColor(colorsPlusBlackArray) as ColorPlusBlack]);
+    setText(getRandomElement(colors));
+    setTextColor(colorsPlusBlack[getRandomElement(colorsPlusBlackArray) as ColorPlusBlack]);
   }, []);
-  
 
   const [shuffledColors, setShuffledColors] = useState(colors);
-  // const [displayedText, setDisplayedText] = useState(getRandomColor(colors));
-  // const [displayedColor, setDisplayedColor] = useState(getRandomColor([...colors, 'Black']));
+  // const [displayedText, setDisplayedText] = useState(getRandomElement(colors));
+  // const [displayedColor, setDisplayedColor] = useState(getRandomElement([...colors, 'Black']));
   // const [score, setScore] = useState(0);
 
   const shuffleColors= (colorArray: string[]): void => {
     const copyArray= [...colorArray];
     let currentIndex = copyArray.length, randomIndex;
-
-    // While there remain elements to shuffle.
-    while (currentIndex !== 0) {
-
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [copyArray[currentIndex], copyArray[randomIndex]] = [copyArray[randomIndex], copyArray[currentIndex]];
-    }
-    
+    shuffleArray(copyArray);
     setShuffledColors(copyArray);
-    // setDisplayedText(getRandomColor(colors));
-    // setDisplayedColor(getRandomColor([...colors, 'Black']));
-    setText(getRandomColor(colors));
-    setTextColor(colorsPlusBlack[getRandomColor(colorsPlusBlackArray) as Color]);
+    // setDisplayedText(getRandomElement(colors));
+    // setDisplayedColor(getRandomElement([...colors, 'Black']));
+    setText(getRandomElement(colors));
+    setTextColor(colorsPlusBlack[getRandomElement(colorsPlusBlackArray) as Color]);
   };
 
   // const handleScore= (e: React.SyntheticEvent): void => { // Maybe try with <HTMLInputElement>
