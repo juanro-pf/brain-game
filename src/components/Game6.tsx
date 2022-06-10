@@ -3,13 +3,20 @@ import { shuffleArray } from '../helpers/helpFunctions';
 
 const Game6 = () => {
 
-  const generateArraySubset= (arr: number, lenght: number): number[] => {
+  const generateArraySubset= (arr: number[], lenght: number): number[] => {
     const subArray: number[]= [];
-    if(subArray.includes(arr[Math.floor(Math.random() * arr.length)])) //Check this tomorrow
+    let i=0;
+    while(i<lenght){
+      const randElement= arr[Math.floor(Math.random() * arr.length)];
+      if(!subArray.includes(randElement)){
+        subArray.push(randElement);
+        i++;
+      }
+    }
     return subArray;
   };
 
-  const generateNumbersArray= (columns: number, elementsPerColumn: number): [number[][], number] => {
+  const generateNumbersArray= (columns: number, elementsPerColumn: number): [number[][], number, number[]] => {
     const columnsArray: number[][]= [];
     const numbersArray= [];
     for(let i= 0; i<=columns*elementsPerColumn; i++){
@@ -17,24 +24,34 @@ const Game6 = () => {
     }
     const missingNumber= numbersArray.splice(Math.floor(Math.random() * numbersArray.length), 1)[0];
     shuffleArray(numbersArray);
+    const responseArray= generateArraySubset(numbersArray, 4);
+    responseArray.push(missingNumber);
+    shuffleArray(responseArray);
     for(let i=0; i<columns; i++){
       columnsArray.push([]);
       for(let j=0;  j<elementsPerColumn; j++){
         columnsArray[i].push(numbersArray.pop()!);
       }
     }
-    return [columnsArray, missingNumber];
+    return [columnsArray, missingNumber, responseArray];
   };
 
   const [numbersArray, setNumbersArray] = useState([[0]]);
   const [missingNumber, setMissingNumber] = useState(0);
+  const [responsesArray, setResponsesArray] = useState([0]);
 
   useEffect(() => {
     const generatedArray= generateNumbersArray(6,6);
     setNumbersArray(generatedArray[0]);
     setMissingNumber(generatedArray[1]);
+    setResponsesArray(generatedArray[2]);
+    console.log(generatedArray[2]);
+    console.log(generatedArray[1]);
   }, []);
   
+  const handleClick= (e: React.MouseEvent<HTMLElement>): void => {
+    if(e.currentTarget.id === missingNumber.toString()) console.log('correct');
+  };
 
   return (
     <div className='game-six'>
@@ -48,7 +65,9 @@ const Game6 = () => {
         }
       </div>
       <div className='game-six__section'>
-        Sale
+        {
+          responsesArray.map((element, index) => <div onClick={handleClick} id={`${element}`} key={`response-${index}`} className='game-six__section__responses'>{element}</div>)
+        }
       </div>
     </div>
   )

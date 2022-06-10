@@ -256,10 +256,6 @@ html, body {
   justify-content: center;
 }
 
-.game-six__section--up {
-  /* justify-content: center; */
-}
-
 .game-six__section__column {
   display: flex;
   flex-direction: column;
@@ -268,7 +264,7 @@ html, body {
 }
 
 .game-six__section__column__element {
-  background-color: #fa6400;
+  background-color: #f69757;
   border: 2px solid black;
   border-radius: 50%;
   font-weight: bold;
@@ -278,6 +274,75 @@ html, body {
   width: 50px;
 }
 
-.game-six__section--down {
-  
+.game-six__section__responses {
+  background-color: rgb(249, 197, 134);
+  border: 2px solid black;
+  cursor: pointer;
+  font-weight: bold;
+  height: 50px;
+  line-height: 52px;
+  margin-right: 15px;
+  margin-top: 20px;
+  width: 50px;
+}
+
+/*=======
+  GAME7
+=======*/
+
+.game-seven {
+  padding-top: 100px;
+}
+
+.game-seven__section-up {
+  background-color: rgb(249, 197, 134);
+  border: 4px solid black;
+  height: 50px;
+  margin: 0 auto;
+  text-align: center;
+  width: 250px;
+}
+
+.game-seven__section-up p {
+  font-size: 45px;
+  margin: 0 auto;
+}
+
+.game-seven__section-down {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.game-seven__section-down input {
+  background-color: bisque;
+  border: 4px solid black;
+  font-size: 45px;
+  font-weight: bold;
+  height: 50px;
+  padding: 0;
+  outline: none;
+  text-align: center;
+  width: 250px;
+}
+
+.game-seven__section-down button {
+  background-color: #fa6400;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  /* justify-content: center; */
+  margin: 20px auto;
+  /* position: relative; */
+  /* text-decoration: none; */
+  transition: all 25ms;
+  width: 130px;
+}
+
+.game-seven__section-down button:hover,
+.game-seven__section-down button:focus {
+  background-color: #fb8332;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
