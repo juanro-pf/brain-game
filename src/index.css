@@ -346,3 +346,67 @@ html, body {
   background-color: #fb8332;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
+
+/*=======
+  GAME8
+=======*/
+
+.game-eight {
+  font-size: 35px;
+  padding-top: 30px;
+  /* text-align as center to center the numbers inside the elements */
+  text-align: center;
+}
+
+.game-eight__section-up {
+  background-color: rgb(249, 197, 134);
+  border: 4px solid black;
+  height: 50px;
+  margin: 0 auto;
+  text-align: center;
+  width: 250px;
+}
+
+.game-eight__section-up p {
+  font-size: 45px;
+  margin: 0 auto;
+}
+
+.game-eight__section-down {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.game-eight__section-down input {
+  background-color: bisque;
+  border: 4px solid black;
+  font-size: 45px;
+  font-weight: bold;
+  height: 50px;
+  padding: 0;
+  outline: none;
+  text-align: center;
+  width: 250px;
+}
+
+.game-eight__section-down button {
+  background-color: #fa6400;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  /* justify-content: center; */
+  margin: 20px auto;
+  /* position: relative; */
+  /* text-decoration: none; */
+  transition: all 25ms;
+  width: 130px;
+}
+
+.game-eight__section-down button:hover,
+.game-eight__section-down button:focus {
+  background-color: #fb8332;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}

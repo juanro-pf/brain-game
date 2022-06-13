@@ -6,6 +6,8 @@ import Game4 from './Game4';
 import Game5 from './Game5';
 import Game6 from './Game6';
 import Game7 from './Game7';
+import Game8 from './Game8';
+import Game9 from './Game9';
 
 const GameScreen = () => {
 
@@ -35,7 +37,9 @@ const GameScreen = () => {
         {/* <Game4 /> */}
         {/* <Game5 /> */}
         {/* <Game6 /> */}
-        <Game7 />
+        {/* <Game7 /> */}
+        {/* <Game8 /> */}
+        <Game9 />
       </div>
     </div>
   )

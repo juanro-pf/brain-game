@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Game7 = () => {
 
@@ -8,17 +8,26 @@ const Game7 = () => {
     const percentage= percentageMultiple * (Math.floor(Math.random() * (possiblePercentagesCount)) + 1);
     const maxNumber= 1000;
     const totalMultiple= 10;
-    const possibleTotalCount= (maxNumber / totalMultiple);
-    const total= totalMultiple * (Math.floor(Math.random() * possibleTotalCount) + 1);
-    const result= total * percentage / 100;
-    console.log([percentage, total, result]); //[65, 750, 487.5] Fix logic to avoid decimals
-    //Also check possible rendering issue after saving changes on this component (might be due to using this function on useState declaration directly instead of useEffect)
+    const possibleTotalCount= (maxNumber / totalMultiple) - Math.floor(100 / totalMultiple);
+    let total= totalMultiple * (Math.floor(Math.random() * possibleTotalCount) + Math.floor(100 / totalMultiple));
+    let result= Math.floor(total * percentage / 100);
+    // Following while is to avoid decimals
+    while((result * 100) % percentage !== 0){
+      result++;
+    }
+    total= (result * 100) / percentage;
+    console.log([percentage, total, result]);
     return [percentage, total, result];
   }
 
-  const [percentage, setPercentage] = useState(generatePercentage());
+  const [percentage, setPercentage] = useState([50, 750, 375]);
   const [remainingLevels, setRemainingLevels] = useState(5);
   const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    setPercentage(generatePercentage());
+  }, []);
+  
 
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
     setInputValue(e.currentTarget.value);
@@ -26,8 +35,10 @@ const Game7 = () => {
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    if(inputValue === percentage[2].toString()) setRemainingLevels(old => old - 1);
-    setPercentage(generatePercentage());
+    if(inputValue === percentage[2].toString()) {
+      setRemainingLevels(old => old - 1)
+      setPercentage(generatePercentage());
+    };
     setInputValue('');
   };
 
