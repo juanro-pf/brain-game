@@ -410,3 +410,35 @@ html, body {
   background-color: #fb8332;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
+
+/*=======
+  GAME9
+=======*/
+
+.game-nine {
+  font-size: 45px;
+  line-height: 40px;
+  padding-top: 30px;
+  text-align: center;
+}
+
+.game-nine__square {
+  background-color: rgb(255, 215, 169);
+  border: 4px solid black;
+  cursor: pointer;
+  height: 50px;
+  font-weight: bold;
+  margin: 0 auto;
+  width: 250px;
+}
+
+.game-nine__square--up {
+  background-color: rgb(245, 179, 98);
+  cursor: default;
+}
+
+.game-nine__section-down {
+  display: flex;
+  margin: 30px auto;
+  width: 600px;
+}
