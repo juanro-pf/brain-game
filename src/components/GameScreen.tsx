@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Game1 from './Game1';
+import Game10 from './Game10';
 import Game2 from './Game2';
 import Game3 from './Game3';
 import Game4 from './Game4';
@@ -39,7 +40,8 @@ const GameScreen = () => {
         {/* <Game6 /> */}
         {/* <Game7 /> */}
         {/* <Game8 /> */}
-        <Game9 />
+        {/* <Game9 /> */}
+        <Game10 />
       </div>
     </div>
   )
