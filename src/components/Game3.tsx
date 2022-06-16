@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { getRandomElement } from '../helpers/helpFunctions';
+import { getRandomElement, handleRemainingLevels } from '../helpers/helpFunctions';
 import newColors from '../media/colors.json';
 
-const Game3 = (props: { setText: Function, setTextColor: Function }) => {
+const Game3 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void, setText: Function, setTextColor: Function }) => {
   
   type Color = keyof typeof newColors;
 
-  const { setText, setTextColor }= props;
+  const { setGameName, changeGame, setRemainingLevels, setText, setTextColor }= props;
 
   const colors= Object.keys(newColors); //['Yellow', 'Green', 'Red', 'Blue']
 
   const [selectedColorCount, setSelectedColorCount] = useState(0);
   const [cellsArray, setCellsArray] = useState([['']]);
   const [optionsArray, setOptionsArray] = useState([0, 0, 0, 0]);
+  const [shuffleAll, setshuffleAll] = useState(false);
+
+  // General game useEffect
+  useEffect(() => {
+    setGameName('Color count');
+    setRemainingLevels(4);
+    return () => {
+      setGameName('');
+      setRemainingLevels(0);
+    }
+  }, []);
 
   useEffect(() => {
     const randColor= getRandomElement(colors);
@@ -22,7 +33,7 @@ const Game3 = (props: { setText: Function, setTextColor: Function }) => {
     setCellsArray(generatedCells);
     setSelectedColorCount(count);
     setOptionsArray(generateOptionsArray(count));
-  }, []);
+  }, [shuffleAll]);
   
   const generateCellsArray = (color: string): [string[][], number] => {
     let tempArray: string[][]= [];
@@ -50,7 +61,8 @@ const Game3 = (props: { setText: Function, setTextColor: Function }) => {
   };
 
   const handleClick= (e: React.MouseEvent<HTMLElement>): void => {
-    if(+e.currentTarget.id === selectedColorCount) console.log('correct');  //Handle the score here
+    if(+e.currentTarget.id === selectedColorCount) setRemainingLevels(old => handleRemainingLevels(old, changeGame));
+    setshuffleAll(old => !old);
   };
 
   return (

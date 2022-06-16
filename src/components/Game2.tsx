@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { handleRemainingLevels } from '../helpers/helpFunctions';
 
-const Game2 = () => {
+const Game2 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+
+  const { setGameName, changeGame, setRemainingLevels }= props;
 
   const generateOperation = (): [string, string] => {
     switch (Math.floor(Math.random() * 3)) {
@@ -21,18 +24,30 @@ const Game2 = () => {
     }
   };
 
-  const [operation, setOperation] = useState(generateOperation());
+  const [operation, setOperation] = useState(['23 x 25', '575']);
   const [inputValue, setInputValue] = useState('');
-  const [remainingLevels, setRemainingLevels] = useState(5);
+
+  // General game useEffect
+  useEffect(() => {
+    setGameName('Basic math');
+    setRemainingLevels(2);
+    return () => {
+      setGameName('');
+      setRemainingLevels(0);
+    }
+  }, []);
+
+  useEffect(() => {
+    setOperation(generateOperation());
+  }, []);
 
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
     setInputValue(e.currentTarget.value);
   };
   
-  // const handleSubmit = (e: React.SyntheticEvent<HTMLInputElement>): void => {
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    if(inputValue === operation[1]) setRemainingLevels(old => old - 1);
+    if(inputValue === operation[1]) setRemainingLevels(old => handleRemainingLevels(old, changeGame));
     setOperation(generateOperation());
     setInputValue('');
   };

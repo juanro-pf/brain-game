@@ -17,7 +17,16 @@ const shuffleArray = (array: Array<any>): void => {
     }
 };
 
+const handleRemainingLevels = (state: number, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void): number => {
+  if(state === 0) {
+    changeGame(old => !old);
+    return state;
+  }
+  else return state - 1;
+};
+
 export {
   shuffleArray,
-  getRandomElement
+  getRandomElement,
+  handleRemainingLevels
 };

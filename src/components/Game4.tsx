@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { shuffleArray } from '../helpers/helpFunctions';
+import { handleRemainingLevels, shuffleArray } from '../helpers/helpFunctions';
 
-const Game4 = () => {
+const Game4 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+
+  const { setGameName, changeGame, setRemainingLevels }= props;
 
   const [numbersArray, setNumbersArray] = useState([[0]]);
   const [currentNumber, setCurrentNumber] = useState(1);
+  const [totalNumbers, setTotalNumbers] = useState(0);
+  const [classArray, setClassArray] = useState([['']]);
+  const [shuffleAll, setshuffleAll] = useState(false);
+
+  // General game useEffect
+  useEffect(() => {
+    setGameName('Ascending numbers');
+    setRemainingLevels(1);
+    return () => {
+      setGameName('');
+      setRemainingLevels(0);
+    }
+  }, []);
 
   const generateNumbersArray= (userRows: number, userSmallRow: number): number[][] => {
     let rows: number;
@@ -41,27 +56,43 @@ const Game4 = () => {
       }
       numArray[rowCount].push(numb);
     });
-
     return numArray;
   };
 
+  const generateClassArray= (numArr: string[][]): typeof numArr => {
+    const classArr= [...numArr];
+    for(let row in numArr){
+      for(let el in row){
+       // Logic to generate the classes array to fix the shit made on line 86
+      }
+    }
+  };
+
   useEffect(() => {
-    setNumbersArray(generateNumbersArray(5, 4));
-  }, []);
+    const userRows= 2;
+    const userSmallRow= 1
+    setNumbersArray(generateNumbersArray(userRows, userSmallRow));
+    setTotalNumbers((userRows * userSmallRow) + Math.floor(userRows / 2));
+  }, [shuffleAll]);
 
   const handleClick= (e: React.MouseEvent<HTMLElement>) => {
-    if(currentNumber === +e.currentTarget.id){
-      setCurrentNumber(old => old + 1);
-      e.currentTarget.className += ' game-four__row__element--clicked';
+    if(currentNumber === +e.currentTarget.id.split('-')[0]){
+      if(currentNumber === totalNumbers) {
+        setRemainingLevels(old => handleRemainingLevels(old, changeGame));
+        setshuffleAll(old => !old);
+      }
+      else{
+        setCurrentNumber(old => old + 1);
+        e.currentTarget.className += ' game-four__row__element--clicked';
+      }
     }
-    console.log(e.currentTarget.className);
   }
 
   return (
     <div className='game-four'>
       {
         numbersArray.map((row, rowIndex) => <div key={`row-${rowIndex}`} className='game-four__row'>{
-          row.map((element, elementIndex) => <div onClick={handleClick} id={`${element}`} key={`row-${rowIndex}-element-${elementIndex}`} className='game-four__row__element'>{element}</div>)
+          row.map((element, elementIndex) => <div onClick={handleClick} id={`${element}-${rowIndex}-${elementIndex}`} key={`row-${rowIndex}-element-${elementIndex}`} className='game-four__row__element'>{element}</div>)
         }</div>)
       }
     </div>
