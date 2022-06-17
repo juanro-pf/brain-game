@@ -54,14 +54,14 @@ const GameScreen = () => {
             <Game2 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
             <Game3 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} setText={setMidText} setTextColor={setMidTextColor}/>,
             <Game4 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
-            <Game5 />,
-            <Game6 />,
-            <Game7 />,
-            <Game8 />,
-            <Game9 />,
-            <Game10 />,
+            <Game5 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game6 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game7 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game8 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game9 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game10 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
             <Score />
-          ][3]
+          ][8]
         }
       </div>
     </div>

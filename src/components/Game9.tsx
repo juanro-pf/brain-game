@@ -1,7 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { shuffleArray } from '../helpers/helpFunctions';
+import { shuffleArray, handleRemainingLevels } from '../helpers/helpFunctions';
 
-const Game9 = () => {
+const Game9 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+
+  const { setGameName, changeGame, setRemainingLevels }= props;
+
+  const [internalRemainingLevels, setInternalRemainingLevel] = useState(4);
+  const [shuffleAll, setShuffleAll] = useState(false);
+
+  // General game useEffect
+  useEffect(() => {
+    setGameName('Words');
+    setRemainingLevels(4);
+    return () => {
+      setGameName('');
+      setRemainingLevels(0);
+    }
+  }, []);
 
   // https://stackoverflow.com/questions/3943772/how-do-i-shuffle-the-characters-in-a-string-in-javascript
   const shuffleString = (str: string): string => {
@@ -19,28 +34,39 @@ const Game9 = () => {
   const characters= 'abcdefghijklmnopqrstuvwxyz';
 
   const [word, setWord] = useState('');
-  const [optionsArray, setOptionsArray] = useState([['', false]]);
+  const [optionsArray, setOptionsArray] = useState([['', false], ['', false], ['', false], ['', false]]);
 
   useEffect(() => {
-    let word: string;
+    let tempWord: string;
     const options: [string, boolean][]= [];
-    fetch(`https://palabras-aleatorias-public-api.herokuapp.com/random-by-length?length=${5}`)
+    fetch(`https://palabras-aleatorias-public-api.herokuapp.com/random-by-length?length=${9 - internalRemainingLevels}`)
       .then(response => response.json())
       .then(data => {
-        word= data.body.Word.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
-        setWord(word);
+        tempWord= data.body.Word.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
+        setWord(tempWord);
         for(let i=0; i<3; i++){
-          const replace= word[Math.floor(Math.random() * word.length)];
-          options.push([shuffleString(word.replace(replace, characters.replace(replace, '')[Math.floor(Math.random() * characters.length)])), false]);
+          const replace= tempWord[Math.floor(Math.random() * tempWord.length)];
+          const shuffled= shuffleString(tempWord.replace(replace, characters.replace(replace, '')[Math.floor(Math.random() * characters.length)]));
+          options.push([shuffled, false]);
+          //Checking the undefined error
         }
-        options.push([shuffleString(word), true]);
+        options.push([shuffleString(tempWord), true]);
         shuffleArray(options);
         setOptionsArray(options);
       });
-  }, []);
+  }, [internalRemainingLevels, shuffleAll]);
 
   const handleClick= (e: React.MouseEvent<HTMLElement>): void => {
-    if(e.currentTarget.id === 'true') console.log('correct');  //Handle the score here
+    if(e.currentTarget.id === 'true') {
+      setWord('');
+      setOptionsArray([['', false], ['', false], ['', false], ['', false]]);
+      setRemainingLevels(old => handleRemainingLevels(old, changeGame));
+      setInternalRemainingLevel(old => old -1)
+    } else if(word){
+      setWord('');
+      setOptionsArray([['', false], ['', false], ['', false], ['', false]]);
+      setShuffleAll(old => !old);
+    }
   };
 
   return (

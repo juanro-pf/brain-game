@@ -1,6 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { handleRemainingLevels } from '../helpers/helpFunctions';
 
-const Game8 = () => {
+const Game8 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+
+  const { setGameName, changeGame, setRemainingLevels }= props;
+
+  // General game useEffect
+  useEffect(() => {
+    setGameName('Fraction');
+    setRemainingLevels(2);
+    return () => {
+      setGameName('');
+      setRemainingLevels(0);
+    }
+  }, []);
 
   const generateFraction= (): [number, number, number, number] => {
     const denominator= Math.floor(Math.random() * 8) + 2;
@@ -17,12 +30,11 @@ const Game8 = () => {
       while(result % numerator !== 0) result--;
       total= result * (denominator / numerator);
     }
-    console.log([numerator, denominator, total, result]);
+    // console.log([numerator, denominator, total, result]);
     return [numerator, denominator, total, result];
   }
 
   const [fraction, setFraction] = useState([3, 4, 100, 75]);
-  const [remainingLevels, setRemainingLevels] = useState(5);
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
@@ -37,7 +49,7 @@ const Game8 = () => {
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     if(inputValue === fraction[3].toString()) {
-      setRemainingLevels(old => old - 1)
+      setRemainingLevels(old => handleRemainingLevels(old, changeGame));
       setFraction(generateFraction());
     };
     setInputValue('');

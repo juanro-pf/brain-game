@@ -1,6 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { handleRemainingLevels } from '../helpers/helpFunctions';
 
-const Game5 = () => {
+const Game5 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+
+  const { setGameName, changeGame, setRemainingLevels }= props;
+
+  // General game useEffect
+  useEffect(() => {
+    setGameName('Arrows');
+    setRemainingLevels(0);
+    return () => {
+      setGameName('');
+    }
+  }, []);
 
   const oppositeSides= {
     'ArrowUp': 'ArrowDown',
@@ -23,8 +35,10 @@ const Game5 = () => {
 
   const handleKey= (e: KeyboardEvent) => {
     if(arrowsArray[currentArrowRef.current] && arrowsArray[currentArrowRef.current][1] === 'Yellow' && e.key === oppositeSides[arrowsArray[currentArrowRef.current][0] as Arrow]){
+      if(currentArrowRef.current === arrowsArray.length - 1) setRemainingLevels(old => handleRemainingLevels(old, changeGame));
       setCurrentArrowRef(currentArrowRef.current + 1);
     } else if(arrowsArray[currentArrowRef.current] && arrowsArray[currentArrowRef.current][1] === 'White' && e.key === arrowsArray[currentArrowRef.current][0]){
+      if(currentArrowRef.current === arrowsArray.length - 1) setRemainingLevels(old => handleRemainingLevels(old, changeGame));
       setCurrentArrowRef(currentArrowRef.current + 1);
     }
   };

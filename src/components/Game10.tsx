@@ -1,8 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import colors from '../media/colors.json';
-import { getRandomElement, shuffleArray } from '../helpers/helpFunctions';
+import { getRandomElement, handleRemainingLevels, shuffleArray } from '../helpers/helpFunctions';
 
-const Game10 = () => {
+const Game10 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+
+  const { setGameName, changeGame, setRemainingLevels }= props;
+
+  // General game useEffect
+  useEffect(() => {
+    setGameName('Pick the side');
+    setRemainingLevels(0);
+    return () => {
+      setGameName('');
+    }
+  }, []);
 
   const sides= {
     'ArrowLeft': [0, 2],
@@ -25,6 +36,7 @@ const Game10 = () => {
 
   const handleKey= (e: KeyboardEvent) => {
     if(colorsArray[currentColorRef.current] && sides[e.key as Side] && sides[e.key as Side].includes(cansArrayRef.current.indexOf(colorsArray[currentColorRef.current]))){
+      if(currentColorRef.current === colorsArray.length - 1) setRemainingLevels(old => handleRemainingLevels(old, changeGame));
       if(currentColorRef.current !== 0 && currentColorRef.current !== colorsArray.length && currentColorRef.current % 9 === 0){
         const newCans= [...cansArray];
         shuffleArray(newCans);

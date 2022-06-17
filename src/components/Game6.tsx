@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { shuffleArray } from '../helpers/helpFunctions';
+import { shuffleArray, handleRemainingLevels } from '../helpers/helpFunctions';
 
-const Game6 = () => {
+const Game6 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+
+  const { setGameName, changeGame, setRemainingLevels }= props;
+
+  // General game useEffect
+  useEffect(() => {
+    setGameName('Missing number');
+    setRemainingLevels(2);
+    return () => {
+      setGameName('');
+      setRemainingLevels(0);
+    }
+  }, []);
 
   const generateArraySubset= (arr: number[], lenght: number): number[] => {
     const subArray: number[]= [];
@@ -39,18 +51,22 @@ const Game6 = () => {
   const [numbersArray, setNumbersArray] = useState([[0]]);
   const [missingNumber, setMissingNumber] = useState(0);
   const [responsesArray, setResponsesArray] = useState([0]);
+  const [suffleAll, setSuffleAll] = useState(false);
 
   useEffect(() => {
     const generatedArray= generateNumbersArray(6,6);
     setNumbersArray(generatedArray[0]);
     setMissingNumber(generatedArray[1]);
     setResponsesArray(generatedArray[2]);
-    console.log(generatedArray[2]);
-    console.log(generatedArray[1]);
-  }, []);
+    // console.log(generatedArray[2]);
+    // console.log(generatedArray[1]);
+  }, [suffleAll]);
   
   const handleClick= (e: React.MouseEvent<HTMLElement>): void => {
-    if(e.currentTarget.id === missingNumber.toString()) console.log('correct');
+    if(e.currentTarget.id === missingNumber.toString()) {
+      setRemainingLevels(old => handleRemainingLevels(old, changeGame));
+    }
+    setSuffleAll(old => !old);
   };
 
   return (

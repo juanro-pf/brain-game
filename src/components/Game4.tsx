@@ -59,31 +59,40 @@ const Game4 = (props: { setGameName: (arg: ((str: string) => string) | string) =
     return numArray;
   };
 
-  const generateClassArray= (numArr: string[][]): typeof numArr => {
-    const classArr= [...numArr];
+  const generateClassArray= (numArr: number[][], className: string): string[][] => {
+    const classArr: string[][]= [];
     for(let row in numArr){
-      for(let el in row){
+      classArr.push([]);
+      for(let el in numArr[row]){
        // Logic to generate the classes array to fix the shit made on line 86
-      }
-    }
+       classArr[row].push(className);
+      };
+    };
+    return classArr;
   };
 
   useEffect(() => {
-    const userRows= 2;
-    const userSmallRow= 1
-    setNumbersArray(generateNumbersArray(userRows, userSmallRow));
+    const userRows= 5;
+    const userSmallRow= 4;
+    const numArr= generateNumbersArray(userRows, userSmallRow);
+    setNumbersArray(numArr);
+    setClassArray(generateClassArray(numArr, 'game-four__row__element'));
     setTotalNumbers((userRows * userSmallRow) + Math.floor(userRows / 2));
   }, [shuffleAll]);
 
   const handleClick= (e: React.MouseEvent<HTMLElement>) => {
-    if(currentNumber === +e.currentTarget.id.split('-')[0]){
+    const splittedId= e.currentTarget.id.split('-');
+    if(currentNumber === +splittedId[0]){
       if(currentNumber === totalNumbers) {
         setRemainingLevels(old => handleRemainingLevels(old, changeGame));
         setshuffleAll(old => !old);
+        setCurrentNumber(1);
       }
       else{
         setCurrentNumber(old => old + 1);
-        e.currentTarget.className += ' game-four__row__element--clicked';
+        const tempClassArr= [...classArray];
+        tempClassArr[+splittedId[1]][+splittedId[2]]= 'game-four__row__element game-four__row__element--clicked'
+        // e.currentTarget.className += ' game-four__row__element--clicked';
       }
     }
   }
@@ -92,7 +101,7 @@ const Game4 = (props: { setGameName: (arg: ((str: string) => string) | string) =
     <div className='game-four'>
       {
         numbersArray.map((row, rowIndex) => <div key={`row-${rowIndex}`} className='game-four__row'>{
-          row.map((element, elementIndex) => <div onClick={handleClick} id={`${element}-${rowIndex}-${elementIndex}`} key={`row-${rowIndex}-element-${elementIndex}`} className='game-four__row__element'>{element}</div>)
+          row.map((element, elementIndex) => <div onClick={handleClick} id={`${element}-${rowIndex}-${elementIndex}`} key={`row-${rowIndex}-element-${elementIndex}`} className={classArray[rowIndex][elementIndex]}>{element}</div>)
         }</div>)
       }
     </div>

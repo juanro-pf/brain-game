@@ -1,6 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { handleRemainingLevels } from '../helpers/helpFunctions';
 
-const Game7 = () => {
+const Game7 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+
+  const { setGameName, changeGame, setRemainingLevels }= props;
+
+  // General game useEffect
+  useEffect(() => {
+    setGameName('Percentage');
+    setRemainingLevels(2);
+    return () => {
+      setGameName('');
+      setRemainingLevels(0);
+    }
+  }, []);
 
   const generatePercentage= (): [number, number, number] => {
     const percentageMultiple= 5;
@@ -16,12 +29,11 @@ const Game7 = () => {
       result++;
     }
     total= (result * 100) / percentage;
-    console.log([percentage, total, result]);
+    // console.log([percentage, total, result]);
     return [percentage, total, result];
   }
 
   const [percentage, setPercentage] = useState([50, 750, 375]);
-  const [remainingLevels, setRemainingLevels] = useState(5);
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
@@ -36,7 +48,7 @@ const Game7 = () => {
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     if(inputValue === percentage[2].toString()) {
-      setRemainingLevels(old => old - 1)
+      setRemainingLevels(old => handleRemainingLevels(old, changeGame));
       setPercentage(generatePercentage());
     };
     setInputValue('');
