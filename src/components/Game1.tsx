@@ -17,7 +17,7 @@ const Game1 = (props: { setGameName: (arg: ((str: string) => string) | string) =
   // General game useEffect
   useEffect(() => {
     setGameName('Pick the color');
-    setRemainingLevels(19);
+    setRemainingLevels(14);
     return () => {
       setGameName('');
       setRemainingLevels(0);

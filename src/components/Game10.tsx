@@ -61,7 +61,7 @@ const Game10 = (props: { setGameName: (arg: ((str: string) => string) | string) 
     return array;
   };
 
-  const [colorsArray, setColorsArray] = useState(generateColorsArray(50));
+  const [colorsArray, setColorsArray] = useState(generateColorsArray(35));
   const [currentColor, setCurrentColor] = useState(0); //currentColorIndex would be a better name
   const currentColorRef = useRef(currentColor);
   const [cansArray, setCansArray] = useState(Object.keys(colors));
@@ -69,9 +69,9 @@ const Game10 = (props: { setGameName: (arg: ((str: string) => string) | string) 
 
   return (
     <div className='game-ten'>
-      <div className='game-ten__item' style={{ backgroundColor: colorsArray[currentColor + 2] ? colors[colorsArray[currentColor + 2] as Color] : '', border: colorsArray[currentColor + 2] ? '' : '2px solid transparent' }}>{currentColor + 2 !== 0 && currentColor + 2 !== colorsArray.length && (currentColor + 2) % 9 === 0 && '?'}</div>
-      <div className='game-ten__item' style={{ backgroundColor: colorsArray[currentColor + 1] ? colors[colorsArray[currentColor + 1] as Color] : '', border: colorsArray[currentColor + 1] ? '' : '2px solid transparent' }}>{currentColor + 1 !== 0 && currentColor + 1 !== colorsArray.length && (currentColor + 1) % 9 === 0 && '?'}</div>
-      <div className='game-ten__item' style={{ backgroundColor: colorsArray[currentColor] ? colors[colorsArray[currentColor] as Color] : '', border: colorsArray[currentColor] ? '' : '2px solid transparent' }}>{currentColor !== 0 && currentColor !== colorsArray.length && currentColor % 9 === 0 && '?'}</div>
+      <div className='game-ten__item' style={{ backgroundColor: colorsArray[currentColor + 2] ? colors[colorsArray[currentColor + 2] as Color] : '', border: colorsArray[currentColor + 2] ? '' : '2px solid transparent' }}>{colorsArray[currentColor + 2] && currentColor + 2 !== 0 && currentColor + 2 !== colorsArray.length && (currentColor + 2) % 9 === 0 && '?'}</div>
+      <div className='game-ten__item' style={{ backgroundColor: colorsArray[currentColor + 1] ? colors[colorsArray[currentColor + 1] as Color] : '', border: colorsArray[currentColor + 1] ? '' : '2px solid transparent' }}>{colorsArray[currentColor + 1] && currentColor + 1 !== 0 && currentColor + 1 !== colorsArray.length && (currentColor + 1) % 9 === 0 && '?'}</div>
+      <div className='game-ten__item' style={{ backgroundColor: colorsArray[currentColor] ? colors[colorsArray[currentColor] as Color] : '', border: colorsArray[currentColor] ? '' : '2px solid transparent' }}>{colorsArray[currentColor] && currentColor !== 0 && currentColor !== colorsArray.length && currentColor % 9 === 0 && '?'}</div>
       <div className='game-ten__section-down'>
         <div className='game-ten__section-down__side'>
           <div className='game-ten__section-down__side__item' style={{ backgroundColor: colors[cansArray[2] as Color] }}></div>

@@ -10,6 +10,7 @@ const Game4 = (props: { setGameName: (arg: ((str: string) => string) | string) =
   const [totalNumbers, setTotalNumbers] = useState(0);
   const [classArray, setClassArray] = useState([['']]);
   const [shuffleAll, setshuffleAll] = useState(false);
+  const [internalRemainingLevels, setInternalRemainingLevels] = useState(1);
 
   // General game useEffect
   useEffect(() => {
@@ -63,7 +64,7 @@ const Game4 = (props: { setGameName: (arg: ((str: string) => string) | string) =
     const classArr: string[][]= [];
     for(let row in numArr){
       classArr.push([]);
-      for(let el in numArr[row]){
+      for(let el=0; el<numArr[row].length; el++){
        // Logic to generate the classes array to fix the shit made on line 86
        classArr[row].push(className);
       };
@@ -72,8 +73,8 @@ const Game4 = (props: { setGameName: (arg: ((str: string) => string) | string) =
   };
 
   useEffect(() => {
-    const userRows= 5;
-    const userSmallRow= 4;
+    const userRows= 5 - internalRemainingLevels;
+    const userSmallRow= 4 - internalRemainingLevels;
     const numArr= generateNumbersArray(userRows, userSmallRow);
     setNumbersArray(numArr);
     setClassArray(generateClassArray(numArr, 'game-four__row__element'));
@@ -84,6 +85,7 @@ const Game4 = (props: { setGameName: (arg: ((str: string) => string) | string) =
     const splittedId= e.currentTarget.id.split('-');
     if(currentNumber === +splittedId[0]){
       if(currentNumber === totalNumbers) {
+        setInternalRemainingLevels(old => old - 1);
         setRemainingLevels(old => handleRemainingLevels(old, changeGame));
         setshuffleAll(old => !old);
         setCurrentNumber(1);

@@ -10,8 +10,8 @@ const Game9 = (props: { setGameName: (arg: ((str: string) => string) | string) =
 
   // General game useEffect
   useEffect(() => {
-    setGameName('Words');
-    setRemainingLevels(4);
+    setGameName('Shuffled word');
+    setRemainingLevels(3);
     return () => {
       setGameName('');
       setRemainingLevels(0);
@@ -46,9 +46,8 @@ const Game9 = (props: { setGameName: (arg: ((str: string) => string) | string) =
         setWord(tempWord);
         for(let i=0; i<3; i++){
           const replace= tempWord[Math.floor(Math.random() * tempWord.length)];
-          const shuffled= shuffleString(tempWord.replace(replace, characters.replace(replace, '')[Math.floor(Math.random() * characters.length)]));
+          const shuffled= shuffleString(tempWord.replace(replace, characters.replace(replace, '')[Math.floor(Math.random() * (characters.length - 1))])); //characters.length - 1 because we are replacing the character with an empty string, so the lenght dicreases in 1
           options.push([shuffled, false]);
-          //Checking the undefined error
         }
         options.push([shuffleString(tempWord), true]);
         shuffleArray(options);

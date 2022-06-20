@@ -7,8 +7,8 @@ const Game8 = (props: { setGameName: (arg: ((str: string) => string) | string) =
 
   // General game useEffect
   useEffect(() => {
-    setGameName('Fraction');
-    setRemainingLevels(2);
+    setGameName('Fractions');
+    setRemainingLevels(1);
     return () => {
       setGameName('');
       setRemainingLevels(0);

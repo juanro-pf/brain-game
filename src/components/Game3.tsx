@@ -18,10 +18,12 @@ const Game3 = (props: { setGameName: (arg: ((str: string) => string) | string) =
   // General game useEffect
   useEffect(() => {
     setGameName('Color count');
-    setRemainingLevels(4);
+    setRemainingLevels(2);
     return () => {
       setGameName('');
       setRemainingLevels(0);
+      setText('');
+      setTextColor('Black');
     }
   }, []);
 

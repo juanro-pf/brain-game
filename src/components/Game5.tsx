@@ -58,7 +58,7 @@ const Game5 = (props: { setGameName: (arg: ((str: string) => string) | string) =
     return array;
   };
 
-  const [arrowsArray, setArrowsArray] = useState(generateArrowsArray(50));
+  const [arrowsArray, setArrowsArray] = useState(generateArrowsArray(35));
   const [currentArrow, setCurrentArrow] = useState(0);
   const currentArrowRef = useRef(currentArrow);
 
