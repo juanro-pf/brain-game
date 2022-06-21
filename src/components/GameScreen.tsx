@@ -10,7 +10,7 @@ import Game8 from './Game8';
 import Game9 from './Game9';
 import Game10 from './Game10';
 import Score from './Score';
-import { shuffleArray } from '../helpers/helpFunctions';
+import { convertCentisecondsToMinutesSecondsCentiseconds, shuffleArray } from '../helpers/helpFunctions';
 import StartGame from './StartGame';
 
 const GameScreen = () => {
@@ -25,13 +25,19 @@ const GameScreen = () => {
   const [currentGameName, setCurrentGameName] = useState('');
   const [remainingLevels, setRemainingLevels] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
-  const [timer, setTimer] = useState(0);
   const tempRefValue: any= 0;
   const timerRef = useRef(tempRefValue);
+  const [counter, setCounter] = useState(0);
+  const [penalizations, setPenalizations] = useState(0);
+  const totalTime= counter + penalizations;
+  const readableTime= convertCentisecondsToMinutesSecondsCentiseconds(totalTime);
 
-  //Increase a state counter instead of console.log
+  // Counter/Timer
   useEffect(() => {
-    if(timerRunning) timerRef.current= setInterval(() => console.log('va'));
+    if(timerRunning) {
+      timerRef.current= setInterval(() => setCounter(old => old + .01), 10);
+      setTimerRunning(false);
+    }
   }, [timerRunning]);
 
   useEffect(() => {
@@ -50,7 +56,7 @@ const GameScreen = () => {
       <div className='top-bar'>
         <div className='top-bar__section top-bar__section--left'>
           <span>Remaining games: <span style={{ color: 'red' }}>{games.length}</span></span>
-          <p>Time: <b>0:00</b></p>
+          <p>Time: <b>{readableTime[0]}:{readableTime[1]}.{readableTime[2]}</b></p>
         </div>
         <p className='top-bar__section top-bar__section--middle' style={{ color: midTextColor }} >{midText}</p>
         <div className='top-bar__section top-bar__section--right'>
@@ -61,22 +67,22 @@ const GameScreen = () => {
           }
         </div>
       </div>
-      {/* <div onClick={() => setChangeGame(old => !old)} className='game-section' style={{ height: `${height - 58 - 38}px` }}> 38 from .navbar and 58 from .top-bar */}
-      <div className='game-section' style={{ height: `${height - 58 - 38}px` }}> {/*38 from .navbar and 58 from .top-bar*/}
+      <div onClick={() => setChangeGame(old => !old)} className='game-section' style={{ height: `${height - 58 - 38}px` }}> 38 from .navbar and 58 from .top-bar
+      
         {
           [
             <StartGame changeGame={setChangeGame} startGame={setTimerRunning} />,
-            <Game1 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} height={height} text={midText} setText={setMidText} textColor={midTextColor} setTextColor={setMidTextColor} />,
-            <Game2 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
-            <Game3 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} setText={setMidText} setTextColor={setMidTextColor}/>,
-            <Game4 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
-            <Game5 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
-            <Game6 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
-            <Game7 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
-            <Game8 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
-            <Game9 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
-            <Game10 setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
-            <Score />
+            <Game1 setPenalizationPoints={setPenalizations} setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} height={height} text={midText} setText={setMidText} textColor={midTextColor} setTextColor={setMidTextColor} />,
+            <Game2 setPenalizationPoints={setPenalizations} setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game3 setPenalizationPoints={setPenalizations} setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} setText={setMidText} setTextColor={setMidTextColor}/>,
+            <Game4 setPenalizationPoints={setPenalizations} setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game5 setPenalizationPoints={setPenalizations} setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game6 setPenalizationPoints={setPenalizations} setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game7 setPenalizationPoints={setPenalizations} setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game8 setPenalizationPoints={setPenalizations} setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game9 setPenalizationPoints={setPenalizations} setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Game10 setPenalizationPoints={setPenalizations} setGameName={setCurrentGameName} changeGame={setChangeGame} setRemainingLevels={setRemainingLevels} />,
+            <Score time={+totalTime.toFixed(2)} />
           ][currentScreen]
         }
       </div>

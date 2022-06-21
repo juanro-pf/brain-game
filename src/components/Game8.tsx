@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { handleRemainingLevels } from '../helpers/helpFunctions';
 
-const Game8 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+const Game8 = (props: { setPenalizationPoints: (func: ((num: number) => number) | number) => void, setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
 
-  const { setGameName, changeGame, setRemainingLevels }= props;
+  const { setGameName, changeGame, setRemainingLevels, setPenalizationPoints }= props;
 
   // General game useEffect
   useEffect(() => {
@@ -51,7 +51,7 @@ const Game8 = (props: { setGameName: (arg: ((str: string) => string) | string) =
     if(inputValue === fraction[3].toString()) {
       setRemainingLevels(old => handleRemainingLevels(old, changeGame));
       setFraction(generateFraction());
-    };
+    } else setPenalizationPoints(old => old + 10);
     setInputValue('');
   };
 

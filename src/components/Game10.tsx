@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import colors from '../media/colors.json';
 import { getRandomElement, handleRemainingLevels, shuffleArray } from '../helpers/helpFunctions';
 
-const Game10 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+const Game10 = (props: { setPenalizationPoints: (func: ((num: number) => number) | number) => void, setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
 
-  const { setGameName, changeGame, setRemainingLevels }= props;
+  const { setGameName, changeGame, setRemainingLevels, setPenalizationPoints }= props;
 
   // General game useEffect
   useEffect(() => {
@@ -43,7 +43,7 @@ const Game10 = (props: { setGameName: (arg: ((str: string) => string) | string) 
         setCansArrayRef(newCans);
       }
       setCurrentColorRef(currentColorRef.current + 1);
-    }
+    } else if(Object.keys(sides).includes(e.key)) setPenalizationPoints(old => old + 2);
   };
 
   useEffect(() => {

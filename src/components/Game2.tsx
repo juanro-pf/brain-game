@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { handleRemainingLevels } from '../helpers/helpFunctions';
 
-const Game2 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+const Game2 = (props: { setPenalizationPoints: (func: ((num: number) => number) | number) => void, setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
 
-  const { setGameName, changeGame, setRemainingLevels }= props;
+  const { setGameName, changeGame, setRemainingLevels, setPenalizationPoints }= props;
 
   const generateOperation = (): [string, string] => {
     switch (Math.floor(Math.random() * 3)) {
@@ -48,6 +48,7 @@ const Game2 = (props: { setGameName: (arg: ((str: string) => string) | string) =
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     if(inputValue === operation[1]) setRemainingLevels(old => handleRemainingLevels(old, changeGame));
+    else setPenalizationPoints(old => old + 10);
     setOperation(generateOperation());
     setInputValue('');
   };

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { shuffleArray, handleRemainingLevels } from '../helpers/helpFunctions';
 
-const Game9 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+const Game9 = (props: { setPenalizationPoints: (func: ((num: number) => number) | number) => void, setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
 
-  const { setGameName, changeGame, setRemainingLevels }= props;
+  const { setGameName, changeGame, setRemainingLevels, setPenalizationPoints }= props;
 
   const [internalRemainingLevels, setInternalRemainingLevel] = useState(4);
   const [shuffleAll, setShuffleAll] = useState(false);
@@ -62,6 +62,7 @@ const Game9 = (props: { setGameName: (arg: ((str: string) => string) | string) =
       setRemainingLevels(old => handleRemainingLevels(old, changeGame));
       setInternalRemainingLevel(old => old -1)
     } else if(word){
+      setPenalizationPoints(old => old + 5);
       setWord('');
       setOptionsArray([['', false], ['', false], ['', false], ['', false]]);
       setShuffleAll(old => !old);

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { handleRemainingLevels, shuffleArray } from '../helpers/helpFunctions';
 
-const Game4 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+const Game4 = (props: { setPenalizationPoints: (func: ((num: number) => number) | number) => void, setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
 
-  const { setGameName, changeGame, setRemainingLevels }= props;
+  const { setGameName, changeGame, setRemainingLevels, setPenalizationPoints }= props;
 
   const [numbersArray, setNumbersArray] = useState([[0]]);
   const [currentNumber, setCurrentNumber] = useState(1);
@@ -94,9 +94,9 @@ const Game4 = (props: { setGameName: (arg: ((str: string) => string) | string) =
         setCurrentNumber(old => old + 1);
         const tempClassArr= [...classArray];
         tempClassArr[+splittedId[1]][+splittedId[2]]= 'game-four__row__element game-four__row__element--clicked'
-        // e.currentTarget.className += ' game-four__row__element--clicked';
+        // e.currentTarget.className += ' game-four__row__element--clicked'; //In other scenario this solution was not bad
       }
-    }
+    } else setPenalizationPoints(old => old + 2);
   }
 
   return (

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { shuffleArray, handleRemainingLevels } from '../helpers/helpFunctions';
 
-const Game6 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+const Game6 = (props: { setPenalizationPoints: (func: ((num: number) => number) | number) => void, setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
 
-  const { setGameName, changeGame, setRemainingLevels }= props;
+  const { setGameName, changeGame, setRemainingLevels, setPenalizationPoints }= props;
 
   // General game useEffect
   useEffect(() => {
@@ -65,7 +65,7 @@ const Game6 = (props: { setGameName: (arg: ((str: string) => string) | string) =
   const handleClick= (e: React.MouseEvent<HTMLElement>): void => {
     if(e.currentTarget.id === missingNumber.toString()) {
       setRemainingLevels(old => handleRemainingLevels(old, changeGame));
-    }
+    } else setPenalizationPoints(old => old + 10);
     setSuffleAll(old => !old);
   };
 

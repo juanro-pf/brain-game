@@ -25,8 +25,16 @@ const handleRemainingLevels = (state: number, changeGame: (arg: ((bol: boolean) 
   else return state - 1;
 };
 
+const convertCentisecondsToMinutesSecondsCentiseconds = (centiseconds: number): [string, string, string] => {
+  const minutes= Math.floor(centiseconds / 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+  const seconds= (Math.floor(centiseconds) - (Math.floor(centiseconds / 60) * 60)).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+  const decimals= Math.floor  ((centiseconds % 1) * 100).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+  return [minutes, seconds, decimals];
+};
+
 export {
   shuffleArray,
   getRandomElement,
-  handleRemainingLevels
+  handleRemainingLevels,
+  convertCentisecondsToMinutesSecondsCentiseconds
 };

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { handleRemainingLevels } from '../helpers/helpFunctions';
 
-const Game5 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
+const Game5 = (props: { setPenalizationPoints: (func: ((num: number) => number) | number) => void, setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
 
-  const { setGameName, changeGame, setRemainingLevels }= props;
+  const { setGameName, changeGame, setRemainingLevels, setPenalizationPoints }= props;
 
   // General game useEffect
   useEffect(() => {
@@ -40,7 +40,7 @@ const Game5 = (props: { setGameName: (arg: ((str: string) => string) | string) =
     } else if(arrowsArray[currentArrowRef.current] && arrowsArray[currentArrowRef.current][1] === 'White' && e.key === arrowsArray[currentArrowRef.current][0]){
       if(currentArrowRef.current === arrowsArray.length - 1) setRemainingLevels(old => handleRemainingLevels(old, changeGame));
       setCurrentArrowRef(currentArrowRef.current + 1);
-    }
+    } else if(Object.keys(oppositeSides).includes(e.key)) setPenalizationPoints(old => old + 2);
   };
 
   useEffect(() => {

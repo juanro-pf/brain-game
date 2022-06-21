@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { getRandomElement, handleRemainingLevels } from '../helpers/helpFunctions';
 import newColors from '../media/colors.json';
 
-const Game3 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void, setText: Function, setTextColor: Function }) => {
+const Game3 = (props: { setPenalizationPoints: (func: ((num: number) => number) | number) => void, setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void, setText: Function, setTextColor: Function }) => {
   
   type Color = keyof typeof newColors;
 
-  const { setGameName, changeGame, setRemainingLevels, setText, setTextColor }= props;
+  const { setGameName, changeGame, setRemainingLevels, setText, setTextColor, setPenalizationPoints }= props;
 
   const colors= Object.keys(newColors); //['Yellow', 'Green', 'Red', 'Blue']
 
@@ -64,6 +64,7 @@ const Game3 = (props: { setGameName: (arg: ((str: string) => string) | string) =
 
   const handleClick= (e: React.MouseEvent<HTMLElement>): void => {
     if(+e.currentTarget.id === selectedColorCount) setRemainingLevels(old => handleRemainingLevels(old, changeGame));
+    else setPenalizationPoints(old => old + 5);
     setshuffleAll(old => !old);
   };
 

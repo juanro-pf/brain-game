@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { getRandomElement, handleRemainingLevels, shuffleArray } from '../helpers/helpFunctions';
 import newColors from '../media/colors.json';
 
-const Game1 = (props: { setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void, height: number, text: string, setText: Function, textColor: string, setTextColor: Function }) => {
+const Game1 = (props: { setPenalizationPoints: (func: ((num: number) => number) | number) => void, setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void, height: number, text: string, setText: Function, textColor: string, setTextColor: Function }) => {
 
   const colorsPlusBlack= {...newColors, "Black": "Black"};
   type Color = keyof typeof newColors;
   type ColorPlusBlack = keyof typeof colorsPlusBlack;
 
-  const { setGameName, changeGame, setRemainingLevels, height, text, setText, textColor, setTextColor }= props;
+  const { setGameName, changeGame, setRemainingLevels, height, text, setText, textColor, setTextColor, setPenalizationPoints }= props;
   const cuadrantHeight= (height -58 -38 )/2; //38 from .navbar and 58 from .top-bar
 
   const colors= Object.keys(newColors); //['Yellow', 'Green', 'Red', 'Blue']
@@ -46,6 +46,7 @@ const Game1 = (props: { setGameName: (arg: ((str: string) => string) | string) =
       setRemainingLevels(old => handleRemainingLevels(old, changeGame));
     }
     else if(textColor === 'Black' && e.currentTarget.id !== text) setRemainingLevels(old => handleRemainingLevels(old, changeGame));
+    else setPenalizationPoints(old => old + 1);
   };
   
   return (
