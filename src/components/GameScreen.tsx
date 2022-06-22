@@ -33,6 +33,7 @@ const GameScreen = () => {
   const readableTime= convertCentisecondsToMinutesSecondsCentiseconds(totalTime);
 
   // Counter/Timer
+  // CHECK IF TIMER STOPS ON SCREEN CHANGE
   useEffect(() => {
     if(timerRunning) {
       timerRef.current= setInterval(() => setCounter(old => old + .01), 10);
@@ -67,8 +68,9 @@ const GameScreen = () => {
           }
         </div>
       </div>
-      <div onClick={() => setChangeGame(old => !old)} className='game-section' style={{ height: `${height - 58 - 38}px` }}> 38 from .navbar and 58 from .top-bar
-      
+      {/*38 from .navbar and 58 from .top-bar*/}
+      {/* <div onClick={() => setChangeGame(old => !old)} className='game-section' style={{ height: `${height - 58 - 38}px` }}> */}
+      <div className='game-section' style={{ height: `${height - 58 - 38}px` }}>
         {
           [
             <StartGame changeGame={setChangeGame} startGame={setTimerRunning} />,

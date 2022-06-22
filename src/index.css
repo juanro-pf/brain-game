@@ -1,4 +1,5 @@
 html, body {
+  background-color: rgb(152, 152, 152);
   margin: 0;
 }
 
@@ -23,6 +24,32 @@ html, body {
 
 .navbar__item:hover {
   color: pink;
+}
+
+/*==============
+  INSTRUCTIONS
+==============*/
+
+.instructions {
+  background-color: rgb(212, 209, 209);
+  border-radius: 30px;
+  font-size: 25px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 0 20px;
+  width: 80%;
+}
+
+.instructions h2 {
+  padding-top: 10px;
+}
+
+.instructions h3 {
+  text-decoration: underline;
+}
+
+.instructions h4 {
+  padding-bottom: 10px;
 }
 
 /*=========
@@ -514,4 +541,90 @@ html, body {
   height: 100px;
   border: 5px solid black;
   width: 100px;
+}
+
+/*=======
+  SCORE
+=======*/
+
+.score {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.score p {
+  background-color: rgb(217, 217, 217);
+  border: 5px solid rgb(122, 40, 40);
+  font-size: 35px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  max-width: 70%;
+  padding: 10px;
+  width: fit-content;
+}
+
+.score input {
+  background-color: rgb(228, 228, 228);
+  border: 4px solid rgb(122, 40, 40);
+  font-size: 30px;
+  height: 35px;
+  padding: 0;
+  outline: none;
+  text-align: center;
+  width: 250px;
+}
+
+.score__button {
+  border-radius: .25rem;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  margin: 20px auto;
+  margin-bottom: 20px;
+  transition: all 25ms;
+  width: 130px;
+}
+
+.score__submit-button {
+  background-color: rgb(145, 50, 50);
+  border: 3px solid rgb(122, 40, 40);
+}
+
+.score__play-again-button {
+  background-color: #fa6400;
+  border: 3px solid #ab4400;
+}
+
+.score__submit-button:hover,
+.score__submit-button:focus {
+  background-color: rgb(164, 69, 69);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.score__play-again-button:hover,
+.score__play-again-button:focus {
+  background-color: #fb771f;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+/*=============
+  LEADERBOARD
+=============*/
+
+.leaderboard {
+  font-size: 20px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.leaderboard th {
+  background-color: rgb(233, 232, 232);
+  padding: 10px;
+  width: 250px;
+}
+
+.leaderboard td {
+  background-color: rgb(199, 198, 198);
+  padding: 10px;
 }

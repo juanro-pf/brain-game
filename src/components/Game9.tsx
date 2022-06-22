@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { shuffleArray, handleRemainingLevels } from '../helpers/helpFunctions';
 
 const Game9 = (props: { setPenalizationPoints: (func: ((num: number) => number) | number) => void, setGameName: (arg: ((str: string) => string) | string) => void, changeGame: (arg: ((bol: boolean) => boolean) | boolean) => void, setRemainingLevels: (func: ((num: number) => number) | number) => void }) => {
@@ -7,6 +7,8 @@ const Game9 = (props: { setPenalizationPoints: (func: ((num: number) => number) 
 
   const [internalRemainingLevels, setInternalRemainingLevel] = useState(4);
   const [shuffleAll, setShuffleAll] = useState(false);
+  const tempRefValue: any= 0;
+  const timerRef = useRef(tempRefValue);
 
   // General game useEffect
   useEffect(() => {
@@ -39,6 +41,7 @@ const Game9 = (props: { setPenalizationPoints: (func: ((num: number) => number) 
   useEffect(() => {
     let tempWord: string;
     const options: [string, boolean][]= [];
+    timerRef.current= setInterval(() => setPenalizationPoints(old => old - .01), 10);
     fetch(`https://palabras-aleatorias-public-api.herokuapp.com/random-by-length?length=${9 - internalRemainingLevels}`)
       .then(response => response.json())
       .then(data => {
@@ -52,6 +55,7 @@ const Game9 = (props: { setPenalizationPoints: (func: ((num: number) => number) 
         options.push([shuffleString(tempWord), true]);
         shuffleArray(options);
         setOptionsArray(options);
+        clearInterval(timerRef.current);
       });
   }, [internalRemainingLevels, shuffleAll]);
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { convertCentisecondsToMinutesSecondsCentiseconds } from '../helpers/helpFunctions';
+import LeaderboardTable from './LeaderboardTable';
 
 const Score = (props: { time: number }) => {
 
@@ -43,36 +44,21 @@ const Score = (props: { time: number }) => {
   };
 
   return (
-    <div>
-      <p>It took you {readableTime[0]} minutes, {readableTime[1]} seconds and {+readableTime[2] * 10} milliseconds to complete the game.</p>
+    <div className='score'>
+      <p key='time'>It took you <b style={{ color: 'rgb(217, 3, 3)' }}>{readableTime[0]}</b> minutes, <b style={{ color: 'rgb(217, 3, 3)' }}>{readableTime[1]}</b> seconds and <b style={{ color: 'rgb(217, 3, 3)' }}>{+readableTime[2] * 10}</b> milliseconds to complete the game.</p>
       {
         highScorePosition !== 10 &&
         [
-          <p>CONGRATULATIONS! You got the {highScorePosition} best time, introduce your name in the field below and click on submit to add your time to the High Scores.</p>,
-          <form onSubmit={handleSubmit}>
+          <p key='message'><b>CONGRATULATIONS!</b> You got the {highScorePosition + 1} best time, introduce your name in the field below and click on submit to add your time to the High Scores.</p>,
+          <form key='form' onSubmit={handleSubmit}>
             <input onChange={handleInputChange} value={inputValue} autoFocus />
-            <button type='submit'>Submit</button>
+            <button className='score__button score__submit-button' type='submit'>Submit</button>
           </form>
         ]
       }
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            highScoresArray.map(user => 
-              <tr>
-                <td>{user[0]}</td>
-                <td>{user[1]}</td>
-              </tr>
-            )
-          }
-        </tbody>
-      </table>
+      <LeaderboardTable highScores={highScoresArray} />
+      <button className='score__button score__play-again-button' onClick={() => window.location.reload()}>Play again?</button>
+      <br />
     </div>
   )
 };
