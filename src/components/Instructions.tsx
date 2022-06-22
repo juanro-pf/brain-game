@@ -50,7 +50,7 @@ const Instructions = () => {
       <p>You will see 2 squares on each side that contain the color to which the color circles have to be sent to.</p>
       <p>If you see a color circle with a question mark in it, that means that after you send that circle to the correct side, the color of the squares will be shuffled, so check again to which side you should be sending the circles now.</p>
 
-      <h4>Once you have gone through above instructions, you are ready to <Link to='game-mix'>play</Link>.</h4>
+      <h4>Once you have gone through above instructions, you are ready to <Link to='brain-game'>play</Link>.</h4>
     </div>
   )
 };

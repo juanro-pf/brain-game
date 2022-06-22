@@ -11,10 +11,10 @@ const App = () => {
     <div>
       <Navbar />
       <Routes>
-        <Route path="/game-mix" element={<GameScreen />} />
+        <Route path="/brain-game" element={<GameScreen />} />
         <Route path="/instructions" element={<Instructions />} />
         <Route path="/leaderboard" element={<LeaderboardScreen />} />
-        <Route path="*" element={<Navigate replace to="/game-mix" />} />
+        <Route path="*" element={<Navigate replace to="/brain-game" />} />
       </Routes>
     </div>
   )
