@@ -42,7 +42,7 @@ const Game9 = (props: { setPenalizationPoints: (func: ((num: number) => number) 
     let tempWord: string;
     const options: [string, boolean][]= [];
     timerRef.current= setInterval(() => setPenalizationPoints(old => old - .01), 10);
-    fetch(`https://palabras-aleatorias-public-api.herokuapp.com/random-by-length?length=${9 - internalRemainingLevels}`)
+    fetch(`https://palabras-aleatorias-public-api.herokuapp.co/random-by-length?length=${9 - internalRemainingLevels}`)
       .then(response => response.json())
       .then(data => {
         tempWord= data.body.Word.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
@@ -56,7 +56,26 @@ const Game9 = (props: { setPenalizationPoints: (func: ((num: number) => number) 
         shuffleArray(options);
         setOptionsArray(options);
         clearInterval(timerRef.current);
+      })
+      .catch(error => {
+        console.log(error);
+        console.log(internalRemainingLevels);
+        const wordsArray= ["enjuagar", "proveer", "cantar", "comer"];
+        tempWord= wordsArray[internalRemainingLevels - 1];
+        setWord(tempWord);
+        for(let i=0; i<3; i++){
+          const replace= tempWord[Math.floor(Math.random() * tempWord.length)];
+          const shuffled= shuffleString(tempWord.replace(replace, characters.replace(replace, '')[Math.floor(Math.random() * (characters.length - 1))])); //characters.length - 1 because we are replacing the character with an empty string, so the lenght dicreases in 1
+          options.push([shuffled, false]);
+        }
+        options.push([shuffleString(tempWord), true]);
+        shuffleArray(options);
+        setOptionsArray(options);
+        clearInterval(timerRef.current);
       });
+    return () => {
+      clearInterval(timerRef.current);
+    }
   }, [internalRemainingLevels, shuffleAll]);
 
   const handleClick= (e: React.MouseEvent<HTMLElement>): void => {
